@@ -14,13 +14,18 @@
   "live": {
     "threshold": 60,
     "current": {
-      "e2e": 0,
-      "regression": 0,
+      "e2e": 33,
+      "regression": 100,
       "integration": 0
     },
-    "tests": [],
+    "tests": [
+      "tests/e2e/live/TC_LIVE_E2E_001_CreateStream_HappyPath.spec.js",
+      "tests/regression/live/TC_LIVE_REG_001_Restream_CustomFieldsPreserved_OnStatusUpdate.spec.js",
+      "tests/regression/live/TC_LIVE_REG_002_Restream_SocialFieldsCleared_OnSocialType.spec.js"
+    ],
     "sampleIds": [],
-    "lastChecked": null
+    "lastChecked": "2026-05-22",
+    "lastPrAudited": "8323"
   },
   "ads": {
     "threshold": 80,

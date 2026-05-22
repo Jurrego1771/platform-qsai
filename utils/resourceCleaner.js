@@ -14,6 +14,7 @@ export class ResourceCleaner {
   trackAd(adId) { this.track('ad', { adId }); }
   trackVmap(vmapId) { this.track('vmap', { vmapId }); }
   trackLiveStream(liveId) { this.track('live-stream', { liveId }); }
+  trackRestream(liveId, restreamId) { this.track('restream', { liveId, restreamId }); }
   trackShow(showId) { this.track('show', { showId }); }
   trackSeason(showId, seasonId) { this.track('season', { showId, seasonId }); }
   trackEpisode(showId, seasonId, episodeId) { this.track('episode', { showId, seasonId, episodeId }); }
@@ -54,7 +55,10 @@ export class ResourceCleaner {
         await this.api.delete(`/vmap/${ids.vmapId}`);
         break;
       case 'live-stream':
-        await this.api.delete(`/live/${ids.liveId}`);
+        await this.api.delete(`/live-stream/${ids.liveId}`);
+        break;
+      case 'restream':
+        await this.api.delete(`/live-stream/${ids.liveId}/restream/${ids.restreamId}`);
         break;
       case 'show':
         await this.api.delete(`/show/${ids.showId}`);

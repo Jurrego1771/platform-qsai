@@ -1,4 +1,27 @@
 {
   "_comment": "Historial de PRs analizados. Permite al agente aprender patrones de cambio por módulo.",
-  "prs": []
+  "prs": [
+    {
+      "prNumber": 8323,
+      "title": "Fix restreaming",
+      "branch": "fix/issue-8322",
+      "baseBranch": "staging",
+      "mergeRecommendation": "MERGE",
+      "modules": ["live"],
+      "revenueImpact": false,
+      "auditDate": "2026-05-22",
+      "changedFiles": [
+        "src/server/model/schemas/event_restreaming.js",
+        "src/server/routes/api/-/live-stream/restream/status.js"
+      ],
+      "bugsSurface": 0,
+      "testsGenerated": 2,
+      "testsPassed": 4,
+      "testsFailed": 0,
+      "regressionTestFiles": [
+        "tests/regression/live/TC_LIVE_REG_001_Restream_CustomFieldsPreserved_OnStatusUpdate.spec.js",
+        "tests/regression/live/TC_LIVE_REG_002_Restream_SocialFieldsCleared_OnSocialType.spec.js"
+      ]
+    }
+  ]
 }

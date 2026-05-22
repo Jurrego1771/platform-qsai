@@ -4,6 +4,12 @@ import fs from 'fs';
 import path from 'path';
 
 export default async function globalSetup() {
+  // API-only test runs (e.g. regression tests using SmApi directly) don't need a browser session
+  if (process.env.SKIP_AUTH === '1') {
+    console.log('⏭️  SKIP_AUTH=1 — skipping browser login setup');
+    return;
+  }
+
   const baseURL = process.env.BASE_URL || 'https://dev.platform.mediastre.am';
   const email = process.env.CMS_USER;
   const password = process.env.CMS_PASSWORD;

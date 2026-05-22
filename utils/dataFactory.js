@@ -6,11 +6,11 @@ faker.setLocale('es');
 
 export class DataFactory {
   static mediaTitle() {
-    return `${PREFIX} Video ${faker.word.adjective()} ${faker.string.uuid().slice(0, 8)}`;
+    return `${PREFIX} Video ${faker.word.adjective()} ${faker.datatype.uuid().slice(0, 8)}`;
   }
 
   static adName() {
-    return `${PREFIX} Ad ${faker.company.catchPhraseNoun()} ${faker.string.uuid().slice(0, 8)}`;
+    return `${PREFIX} Ad ${faker.commerce.productName()} ${faker.datatype.uuid().slice(0, 8)}`;
   }
 
   static vastUrl() {
@@ -22,39 +22,39 @@ export class DataFactory {
   }
 
   static livestreamName() {
-    return `${PREFIX} Live ${faker.location.city()} ${faker.string.uuid().slice(0, 8)}`;
+    return `${PREFIX} Live ${faker.address.city()} ${faker.datatype.uuid().slice(0, 8)}`;
   }
 
   static customerEmail() {
-    return `qa-e2e-${faker.string.uuid().slice(0, 8)}@test-qa.com`;
+    return `qa-e2e-${faker.datatype.uuid().slice(0, 8)}@test-qa.com`;
   }
 
   static customerName() {
-    return `${PREFIX} ${faker.person.firstName()} ${faker.person.lastName()}`;
+    return `${PREFIX} ${faker.name.firstName()} ${faker.name.lastName()}`;
   }
 
   static showTitle() {
-    return `${PREFIX} Show ${faker.word.noun()} ${faker.string.uuid().slice(0, 8)}`;
+    return `${PREFIX} Show ${faker.word.noun()} ${faker.datatype.uuid().slice(0, 8)}`;
   }
 
   static seasonTitle() {
-    return `${PREFIX} Season ${faker.number.int({ min: 1, max: 10 })}`;
+    return `${PREFIX} Season ${faker.datatype.number({ min: 1, max: 10 })}`;
   }
 
   static episodeTitle() {
-    return `${PREFIX} Episodio ${faker.number.int({ min: 1, max: 20 })} - ${faker.word.noun()}`;
+    return `${PREFIX} Episodio ${faker.datatype.number({ min: 1, max: 20 })} - ${faker.word.noun()}`;
   }
 
   static channelName() {
-    return `${PREFIX} Channel ${faker.word.adjective()} ${faker.string.uuid().slice(0, 8)}`;
+    return `${PREFIX} Channel ${faker.word.adjective()} ${faker.datatype.uuid().slice(0, 8)}`;
   }
 
   static categoryName() {
-    return `${PREFIX} Category ${faker.word.noun()} ${faker.string.uuid().slice(0, 8)}`;
+    return `${PREFIX} Category ${faker.word.noun()} ${faker.datatype.uuid().slice(0, 8)}`;
   }
 
   static playerName() {
-    return `${PREFIX} Player ${faker.word.adjective()} ${faker.string.uuid().slice(0, 8)}`;
+    return `${PREFIX} Player ${faker.word.adjective()} ${faker.datatype.uuid().slice(0, 8)}`;
   }
 
   static generateMediaPayload() {
