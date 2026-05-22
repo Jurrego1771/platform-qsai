@@ -42,6 +42,7 @@ export default defineConfig({
     ['list'],
     ['json', { outputFile: 'test-results/results.json' }],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['./tools/qa-reporter.js'],
     [
       'allure-playwright',
       {

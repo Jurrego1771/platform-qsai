@@ -11,6 +11,10 @@ reports/baseline/scores.json
 *.html
 !reports/baseline/UX_BASELINE.md
 !reports/redesign/*.html
+reports/qa/qa-report-*.html
+reports/qa/qa-summary-*.txt
+!reports/qa/latest.html
+!reports/qa/latest.txt
 .env
 .playwright-mcp/
 .claude/settings.local.json

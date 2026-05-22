@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe de Calidad — Mediastream Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300;400;600;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Encode Sans Expanded', 'Helvetica Neue', Arial, sans-serif;
+      background: #f3f4f6; color: #1a1a1a; font-size: 15px;
+    }
+    a { color: #8E65D8; text-decoration: none; }
+    .hero {
+      background: linear-gradient(140deg, #8E65D8 0%, #4a3080 50%, #1a1a1a 100%);
+      padding: 2rem 2.5rem; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .hero-logo { height: 2rem; filter: brightness(0) invert(1); }
+    .hero-meta { color: rgba(255,255,255,0.5); font-size: 0.72rem; margin-top: 0.3rem; }
+    .hero-right { text-align: right; }
+    .hero-right h1 { color: white; font-weight: 900; font-size: 1.125rem; }
+    .hero-pr  { color: #97D700; font-size: 0.75rem; font-weight: 600; }
+    .hero-mod { color: rgba(255,255,255,0.5); font-size: 0.72rem; }
+    .main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 3rem; }
+    .status-banner {
+      border-left-width: 5px; border-left-style: solid;
+      border-radius: 0.75rem; padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: 0.875rem; margin-bottom: 2rem;
+    }
+    .status-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .status-title { font-weight: 900; font-size: 1rem; }
+    .status-msg { color: #4b5563; font-size: 0.875rem; margin-top: 0.2rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+    .card {
+      background: white; border-radius: 1rem; padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .section-title { font-size: 1rem; font-weight: 900; margin-bottom: 1rem; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .check-list li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.875rem; color: #374151; }
+    .check-icon { color: #97D700; font-size: 1.1rem; font-weight: 900; }
+    .result-row { display: flex; justify-content: space-between; font-size: 0.875rem; color: #374151; margin-bottom: 0.75rem; }
+    .result-row:last-child { border-top: 1px solid #f3f4f6; padding-top: 0.5rem; color: #9ca3af; margin-bottom: 0; }
+    .muted-text { color: #6b7280; font-size: 0.875rem; }
+    .finding {
+      margin-bottom: 0.875rem; padding: 1rem 1.125rem;
+      border: 1px solid; border-left-width: 4px; border-radius: 0.75rem;
+    }
+    .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+    .severity-pill {
+      color: white; font-size: 0.68rem; font-weight: 700;
+      padding: 0.2rem 0.6rem; border-radius: 9999px;
+      text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .finding-title { font-size: 0.875rem; font-weight: 600; color: #1a1a1a; }
+    .finding-error {
+      font-size: 0.75rem; color: #6b7280; font-family: 'Courier New', monospace;
+      white-space: pre-wrap; word-break: break-word;
+      margin-top: 0.3rem; max-height: 120px; overflow-y: auto;
+    }
+    .evidence-details { margin-top: 0.6rem; }
+    .evidence-details summary {
+      font-size: 0.75rem; color: #8E65D8; cursor: pointer;
+      font-weight: 600; user-select: none;
+    }
+    .log-block {
+      margin-top: 0.4rem; background: #1a1a1a; color: #97D700;
+      font-size: 0.72rem; font-family: 'Courier New', monospace;
+      padding: 0.75rem; border-radius: 0.5rem; overflow-x: auto;
+      white-space: pre-wrap; word-break: break-word; max-height: 200px; overflow-y: auto;
+    }
+    .screenshot {
+      margin-top: 0.5rem; max-width: 100%; border-radius: 0.5rem;
+      border: 1px solid #e5e7eb; display: block;
+    }
+    .next-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .next-list li { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #374151; }
+    .arrow { color: #8E65D8; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    thead tr { background: #1a1a1a; color: white; }
+    th { text-align: left; padding: 0.65rem 0.875rem; font-weight: 600; }
+    .td { padding: 0.6rem 0.875rem; color: #374151; vertical-align: middle; }
+    .td-right { text-align: right; color: #9ca3af; }
+    footer {
+      margin-top: 3rem; padding: 1.25rem 1.5rem;
+      text-align: center; border-top: 1px solid #e5e7eb;
+    }
+    footer p { font-size: 0.72rem; color: #9ca3af; }
+    @media print {
+      body { background: white; }
+      .card { box-shadow: none; border: 1px solid #e5e7eb; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="hero">
+    <div>
+      <img class="hero-logo"
+           src="https://cdn.prod.website-files.com/6584479d07aff3fd2a2570e2/6584479d07aff3fd2a2576a2_Mediastream%20Platform.svg"
+           alt="Mediastream Platform"
+           onerror="this.style.display='none'">
+      <p class="hero-meta">Informe de Calidad · 22 de mayo de 2026</p>
+    </div>
+    <div class="hero-right">
+      <h1>Validación QA</h1>
+      <p class="hero-pr">PR #8323 — Fix restreaming</p>
+      <p class="hero-mod">Módulo: live</p>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- ── Status banner ── -->
+    <div class="status-banner" style="background:#f0fdf4;border-color:#97D700;">
+      <span class="status-icon">✅</span>
+      <div>
+        <p class="status-title">Validación QA completada</p>
+        <p class="status-msg">Estado general: Validación ejecutada con resultados controlados.</p>
+      </div>
+    </div>
+
+    <!-- ── Coverage + Results grid ── -->
+    <div class="grid-2">
+      
+      <section class="card">
+        <h2 class="section-title">Cobertura</h2>
+        <ul class="check-list">
+          
+            <li><span class="check-icon">✓</span> Pruebas funcionales</li>
+          
+        </ul>
+      </section>
+      <section class="card">
+        <h2 class="section-title">Resultados</h2>
+        <div class="result-row">
+          <span>Total de pruebas ejecutadas</span>
+          <strong>10</strong>
+        </div>
+        <div class="result-row">
+          <span>Pruebas satisfactorias</span>
+          <strong style="color:#16a34a;">10</strong>
+        </div>
+        
+        
+        <div class="result-row">
+          <span>Tiempo de ejecución</span>
+          <span>15.1s</span>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── Findings ── -->
+    
+
+    <!-- ── Next steps ── -->
+    
+
+    <!-- ── Test detail ── -->
+    <section class="card" style="margin-top:1.5rem;">
+      <h2 class="section-title">Detalle de validaciones</h2>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Validación</th>
+              <th>Estado</th>
+              <th style="text-align:right;">Duración</th>
+            </tr>
+          </thead>
+          <tbody>
+        <tr style="background:white;">
+          <td class="td">publishing_point and stream_id are intact after reading restream detail</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">90ms</td>
+        </tr>
+        <tr style="background:#f9fafb;">
+          <td class="td">publishing_point and stream_id survive an update (pre-save hook isolation)</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">3.1s</td>
+        </tr>
+        <tr style="background:white;">
+          <td class="td">Social restream is created — publishing_point and stream_id are absent</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">195ms</td>
+        </tr>
+        <tr style="background:#f9fafb;">
+          <td class="td">Social restream detail confirms publishing_point/stream_id cleared</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">3.7s</td>
+        </tr>
+        <tr style="background:white;">
+          <td class="td">Custom restream without publishing_point is rejected with 400</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">114ms</td>
+        </tr>
+        <tr style="background:#f9fafb;">
+          <td class="td">Custom restream without stream_id is rejected with 400</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">3.1s</td>
+        </tr>
+        <tr style="background:white;">
+          <td class="td">Social restream without social_id is rejected with 400</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">78ms</td>
+        </tr>
+        <tr style="background:#f9fafb;">
+          <td class="td">Social restream without social_type is rejected with 400</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">87ms</td>
+        </tr>
+        <tr style="background:white;">
+          <td class="td">Deleted restream returns 404 on subsequent GET</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">369ms</td>
+        </tr>
+        <tr style="background:#f9fafb;">
+          <td class="td">Deleted restream does not appear in the restream list</td>
+          <td class="td">
+            <span style="color:#16a34a;font-weight:700;">✓</span>
+            <span style="color:#16a34a;font-size:0.75rem;margin-left:0.25rem;">Satisfactorio</span>
+          </td>
+          <td class="td td-right">255ms</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      Generado el 22 de mayo de 2026 ·
+      <a href="https://mediastream.co">mediastream.co</a> ·
+      Uso interno — confidencial
+    </p>
+  </footer>
+
+</body>
+</html>

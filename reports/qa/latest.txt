@@ -1,0 +1,7 @@
+QA Mediastream Platform — 22 de mayo de 2026
+Módulo: live | Entorno: dev | PR #8323 — "Fix restreaming"
+
+Se ejecutaron 10 pruebas sobre el módulo de live. Todas las validaciones resultaron satisfactorias. Se cubrieron creación de recursos, persistencia de datos, validación de campos obligatorios y ciclo de vida completo. Sin ajustes pendientes — listo para siguiente ambiente.
+
+Estado: Completado sin ajustes pendientes.
+Tests: 10 ejecutados · 10 satisfactorios

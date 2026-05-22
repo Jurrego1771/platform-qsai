@@ -10,6 +10,7 @@
     "test:integration": "playwright test --project=integration",
     "test:media": "playwright test --grep @media",
     "test:live": "playwright test --grep @live",
+    "test:live:ci": "SKIP_AUTH=1 playwright test tests/regression/live/ --project=regression",
     "test:ad": "playwright test --grep @ad",
     "test:customer": "playwright test --grep @customer",
     "test:show": "playwright test --grep @show",
