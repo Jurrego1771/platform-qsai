@@ -1,0 +1,47 @@
+{
+  "name": "platform-qsai",
+  "version": "1.0.0",
+  "description": "Hub de QA para Mediastream Platform SM2 — pipelines funcional y UX/UI con agentes Claude Code",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:e2e": "playwright test --project=e2e",
+    "test:regression": "playwright test --project=regression",
+    "test:integration": "playwright test --project=integration",
+    "test:media": "playwright test --grep @media",
+    "test:live": "playwright test --grep @live",
+    "test:ad": "playwright test --grep @ad",
+    "test:customer": "playwright test --grep @customer",
+    "test:show": "playwright test --grep @show",
+    "test:channel": "playwright test --grep @channel",
+    "test:analytics": "playwright test --grep @analytics",
+    "ux:audit": "node ux/runner.js --mode=audit",
+    "ux:diff": "node ux/runner.js --mode=diff",
+    "ux:flows": "node ux/runner.js --mode=flows",
+    "ux:baseline": "node ux/runner.js --mode=audit",
+    "allure:generate": "allure generate allure-results --clean",
+    "allure:open": "allure open",
+    "allure:serve": "allure serve allure-results",
+    "allure:clean": "rimraf allure-results",
+    "install:browsers": "playwright install chromium"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@faker-js/faker": "^7.6.0",
+    "@playwright/test": "^1.49.0",
+    "allure-playwright": "^3.6.0",
+    "allure-js-commons": "^3.6.0",
+    "axe-core": "^4.10.0",
+    "dotenv": "^16.0.0",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
+    "sharp": "^0.34.5",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

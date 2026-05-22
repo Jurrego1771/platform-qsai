@@ -1,0 +1,93 @@
+{
+  "_comment": "Cobertura de tests por módulo. Actualizado por 02-coverage-checker.md al inicio de cada pipeline funcional.",
+  "media": {
+    "threshold": 60,
+    "current": {
+      "e2e": 0,
+      "regression": 0,
+      "integration": 0
+    },
+    "tests": [],
+    "sampleIds": [],
+    "lastChecked": null
+  },
+  "live": {
+    "threshold": 60,
+    "current": {
+      "e2e": 0,
+      "regression": 0,
+      "integration": 0
+    },
+    "tests": [],
+    "sampleIds": [],
+    "lastChecked": null
+  },
+  "ads": {
+    "threshold": 80,
+    "current": {
+      "e2e": 0,
+      "regression": 0,
+      "integration": 0
+    },
+    "tests": [],
+    "sampleIds": [],
+    "lastChecked": null,
+    "revenueImpact": true
+  },
+  "channel": {
+    "threshold": 60,
+    "current": {
+      "e2e": 0,
+      "regression": 0,
+      "integration": 0
+    },
+    "tests": [],
+    "sampleIds": [],
+    "lastChecked": null
+  },
+  "show": {
+    "threshold": 60,
+    "current": {
+      "e2e": 0,
+      "regression": 0,
+      "integration": 0
+    },
+    "tests": [],
+    "sampleIds": [],
+    "lastChecked": null
+  },
+  "analytics": {
+    "threshold": 60,
+    "current": {
+      "e2e": 0,
+      "regression": 0,
+      "integration": 0
+    },
+    "tests": [],
+    "sampleIds": [],
+    "lastChecked": null
+  },
+  "customer": {
+    "threshold": 70,
+    "current": {
+      "e2e": 0,
+      "regression": 0,
+      "integration": 0
+    },
+    "tests": [],
+    "sampleIds": [],
+    "lastChecked": null,
+    "revenueImpact": true
+  },
+  "platform": {
+    "threshold": 60,
+    "current": {
+      "e2e": 0,
+      "regression": 0,
+      "integration": 0
+    },
+    "tests": [],
+    "sampleIds": [],
+    "lastChecked": null
+  }
+}

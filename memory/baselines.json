@@ -1,0 +1,61 @@
+{
+  "_comment": "Estado 'bueno' conocido por módulo. Se actualiza cuando el equipo confirma que un estado es el correcto.",
+  "media": {
+    "status": "unknown",
+    "lastVerified": null,
+    "uxScore": null,
+    "knownIssues": []
+  },
+  "live": {
+    "status": "unknown",
+    "lastVerified": null,
+    "uxScore": null,
+    "knownIssues": []
+  },
+  "ads": {
+    "status": "unknown",
+    "lastVerified": null,
+    "uxScore": null,
+    "knownIssues": []
+  },
+  "channel": {
+    "status": "unknown",
+    "lastVerified": null,
+    "uxScore": null,
+    "knownIssues": []
+  },
+  "show": {
+    "status": "unknown",
+    "lastVerified": null,
+    "uxScore": null,
+    "knownIssues": []
+  },
+  "analytics": {
+    "status": "unknown",
+    "lastVerified": null,
+    "uxScore": null,
+    "knownIssues": []
+  },
+  "customer": {
+    "status": "unknown",
+    "lastVerified": null,
+    "uxScore": null,
+    "knownIssues": []
+  },
+  "platform": {
+    "status": "audited",
+    "lastVerified": "2026-05-22",
+    "uxScore": 50,
+    "scope": "login flow (/, /login/reset-password, /login/totp)",
+    "reportFile": "reports/baseline/UX_BASELINE.md",
+    "knownIssues": [
+      "Email inputs using type='text' across all 3 login pages",
+      "No html lang attribute on any login template",
+      "Images without alt text (logo + decorative icon)",
+      "tabindex > 0 on form fields disrupts keyboard navigation",
+      "Google Sign-In button renders in Spanish (missing data-locale='en')",
+      "Error messages use Bootstrap 2 class 'alert-error' instead of 'alert-danger'",
+      "TOTP field missing inputmode='numeric' and format help-block"
+    ]
+  }
+}

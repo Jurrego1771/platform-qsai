@@ -1,0 +1,124 @@
+{
+  "_comment": "Hallazgos acumulados por módulo. Actualizado por 99-memory-writer.md al final de cada pipeline.",
+  "media": {
+    "lastAudit": null,
+    "bugs": [],
+    "uxIssues": []
+  },
+  "live": {
+    "lastAudit": null,
+    "bugs": [],
+    "uxIssues": []
+  },
+  "ads": {
+    "lastAudit": null,
+    "bugs": [],
+    "uxIssues": []
+  },
+  "channel": {
+    "lastAudit": null,
+    "bugs": [],
+    "uxIssues": []
+  },
+  "show": {
+    "lastAudit": null,
+    "bugs": [],
+    "uxIssues": []
+  },
+  "analytics": {
+    "lastAudit": null,
+    "bugs": [],
+    "uxIssues": []
+  },
+  "customer": {
+    "lastAudit": null,
+    "bugs": [],
+    "uxIssues": []
+  },
+  "platform": {
+    "lastAudit": "2026-05-22",
+    "bugs": [],
+    "uxIssues": [
+      {
+        "finding_id": "login-main-h5-01",
+        "route": "/",
+        "heuristic": "H5",
+        "severity": 2,
+        "description": "Email input type='text' — sin validación nativa ni teclado email en mobile",
+        "effort": "xs",
+        "status": "open",
+        "detectedAt": "2026-05-22"
+      },
+      {
+        "finding_id": "login-main-h9-01",
+        "route": "/",
+        "heuristic": "H9",
+        "severity": 2,
+        "description": "Error 'Incorrect username or password' sin CTA de recuperación inline; clase alert-error (BS2 legacy)",
+        "effort": "xs",
+        "status": "open",
+        "detectedAt": "2026-05-22"
+      },
+      {
+        "finding_id": "login-main-h2-01",
+        "route": "/",
+        "heuristic": "H2",
+        "severity": 2,
+        "description": "Google Sign-In renderiza en español por ausencia de data-locale='en'",
+        "effort": "xs",
+        "status": "open",
+        "detectedAt": "2026-05-22"
+      },
+      {
+        "finding_id": "login-reset-h5-01",
+        "route": "/login/reset-password",
+        "heuristic": "H5",
+        "severity": 2,
+        "description": "Email type='text' + tabindex arbitrarios (1, 3) rompen orden de tabulación",
+        "effort": "xs",
+        "status": "open",
+        "detectedAt": "2026-05-22"
+      },
+      {
+        "finding_id": "login-totp-h5-01",
+        "route": "/login/totp",
+        "heuristic": "H5",
+        "severity": 2,
+        "description": "Código TOTP sin inputmode='numeric', placeholder vacío y sin help-block de formato",
+        "effort": "xs",
+        "status": "open",
+        "detectedAt": "2026-05-22"
+      },
+      {
+        "finding_id": "axe-image-alt",
+        "route": "/",
+        "heuristic": "WCAG 1.1.1",
+        "severity": "critical",
+        "description": "Logo e imagen decorativa sin atributo alt en todas las páginas de login",
+        "effort": "xs",
+        "status": "open",
+        "detectedAt": "2026-05-22"
+      },
+      {
+        "finding_id": "axe-html-has-lang",
+        "route": "/",
+        "heuristic": "WCAG 3.1.1",
+        "severity": "serious",
+        "description": "<html> sin atributo lang='en' en todos los templates de login",
+        "effort": "xs",
+        "status": "open",
+        "detectedAt": "2026-05-22"
+      },
+      {
+        "finding_id": "axe-tabindex",
+        "route": "/",
+        "heuristic": "WCAG 2.4.3",
+        "severity": "serious",
+        "description": "tabindex > 0 en campos de formulario interrumpe navegación por teclado",
+        "effort": "xs",
+        "status": "open",
+        "detectedAt": "2026-05-22"
+      }
+    ]
+  }
+}

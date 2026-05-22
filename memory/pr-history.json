@@ -1,0 +1,4 @@
+{
+  "_comment": "Historial de PRs analizados. Permite al agente aprender patrones de cambio por módulo.",
+  "prs": []
+}

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-step verification — Mediastream Platform (Redesign Proposal)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ms-green':  '#97D700',
+            'ms-purple': '#8E65D8',
+            'ms-black':  '#1a1a1a',
+          },
+          fontFamily: {
+            sans: ['"Encode Sans Expanded"', 'Helvetica Neue', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300;400;600;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Encode Sans Expanded', 'Helvetica Neue', Arial, sans-serif; }
+    .hero-bg { background: linear-gradient(140deg, #8E65D8 0%, #4a3080 50%, #1a1a1a 100%); }
+
+    /* TOTP: 6 digit input boxes */
+    .otp-container { display: flex; gap: 0.5rem; justify-content: flex-start; }
+    .otp-input {
+      width: 3rem; height: 3.5rem; text-align: center; font-size: 1.5rem;
+      font-weight: 900; border: 1.5px solid #d1d5db; border-radius: 0.5rem;
+      color: #1a1a1a; font-family: 'Encode Sans Expanded', monospace;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .otp-input:focus {
+      outline: none; border-color: #8E65D8;
+      box-shadow: 0 0 0 3px rgba(142,101,216,0.15);
+    }
+    .otp-input.filled { border-color: #8E65D8; background: rgba(142,101,216,0.04); }
+  </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+  <!-- PROPOSAL BANNER -->
+  <div class="bg-ms-purple text-white text-xs px-5 py-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
+    <span class="font-semibold tracking-wider uppercase">🎨 Redesign Proposal</span>
+    <span class="opacity-40">|</span>
+    <span class="opacity-80">Route: <code class="bg-white/10 px-1 rounded">/login/totp</code> — Two-step verification</span>
+    <span class="opacity-40">|</span>
+    <span class="opacity-80">2026-05-22 · 3 UX fixes aplicados · Análisis estático (requiere sesión activa)</span>
+  </div>
+
+  <div class="min-h-screen flex">
+
+    <!-- LEFT: Hero -->
+    <div class="hidden lg:flex w-[52%] hero-bg flex-col justify-between p-12 relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full border border-white/10"></div>
+      <div class="absolute -bottom-32 -left-16 w-80 h-80 rounded-full bg-ms-green/5"></div>
+
+      <!-- Logo -->
+      <div>
+        <img
+          src="https://cdn.prod.website-files.com/6584479d07aff3fd2a2570e2/6584479d07aff3fd2a2576a2_Mediastream%20Platform.svg"
+          alt="Mediastream Platform"
+          class="h-9 brightness-0 invert"
+          onerror="this.style.display='none'">
+      </div>
+
+      <!-- Center content -->
+      <div class="space-y-8">
+        <!-- 2FA illustration (CSS) -->
+        <div class="relative w-40">
+          <div class="w-28 h-48 rounded-3xl border-2 border-white/20 bg-white/5 flex flex-col items-center justify-center gap-3 p-4">
+            <div class="w-8 h-8 rounded-full bg-ms-green/20 border border-ms-green/40 flex items-center justify-center">
+              <svg class="w-4 h-4 text-ms-green" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div class="space-y-1.5 w-full">
+              <div class="h-6 rounded bg-white/10 flex items-center justify-center">
+                <span class="text-white font-black text-sm tracking-widest">· · · · · ·</span>
+              </div>
+            </div>
+            <div class="w-12 h-1.5 rounded-full bg-ms-green/40"></div>
+            <div class="w-6 h-6 rounded-full border-2 border-white/20"></div>
+          </div>
+          <!-- Pulse ring -->
+          <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full border-2 border-ms-green animate-ping opacity-30"></div>
+          <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-ms-green/20 border-2 border-ms-green flex items-center justify-center">
+            <svg class="w-4 h-4 text-ms-green" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-4xl font-black text-white leading-tight">
+            One more step to keep your account
+            <span class="text-ms-green"> secure</span>
+          </h2>
+          <p class="mt-5 text-white/60 font-light text-lg leading-relaxed">
+            Open your authenticator app and enter the 6-digit code to verify your identity.
+          </p>
+          <div class="mt-6 p-4 rounded-xl bg-white/5 border border-white/10">
+            <p class="text-white/50 text-xs font-semibold uppercase tracking-wide mb-2">Recommended apps</p>
+            <ul class="text-white/70 text-sm space-y-1.5 font-light">
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-ms-green flex-shrink-0"></div>
+                Google Authenticator
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-ms-green flex-shrink-0"></div>
+                Microsoft Authenticator
+              </li>
+              <li class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-ms-green flex-shrink-0"></div>
+                Authy
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-white/30 text-xs">© 2026 Mediastream · mediastream.co</p>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="flex-1 flex flex-col bg-white">
+
+      <!-- Mobile logo -->
+      <div class="lg:hidden flex items-center justify-center pt-8">
+        <img
+          src="https://cdn.prod.website-files.com/6584479d07aff3fd2a2570e2/6584479d07aff3fd2a2576a2_Mediastream%20Platform.svg"
+          alt="Mediastream Platform"
+          class="h-8"
+          onerror="this.style.display='none'">
+      </div>
+
+      <div class="flex-1 flex flex-col justify-center items-center px-8 py-10">
+        <div class="w-full max-w-[380px]">
+
+          <!-- Shield icon -->
+          <div class="w-12 h-12 rounded-2xl bg-ms-purple/10 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-ms-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+
+          <!-- Heading — FIX axe: h1 semántico -->
+          <h1 class="text-2xl font-black text-ms-black">Two-step verification</h1>
+          <p class="text-gray-400 text-sm font-light mt-1 mb-8">
+            Enter the 6-digit code from your authenticator app.
+          </p>
+
+          <!-- Error state (demo) -->
+          <div id="error-state" class="hidden mb-5">
+            <div class="flex gap-3 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <p class="text-sm font-semibold text-red-700">Incorrect code. Please try again — codes expire every 30 seconds.</p>
+            </div>
+          </div>
+
+          <!-- OTP Form — FIX H5: 6 cajas individuales, inputmode="numeric", autofocus -->
+          <form method="post" action="/login/totp" novalidate>
+            <div class="mb-2">
+              <label class="block text-sm font-semibold text-gray-700 mb-3">
+                6-digit authentication code
+              </label>
+
+              <!-- 6 individual input boxes — mejor UX que un solo campo -->
+              <div class="otp-container" id="otp-boxes">
+                <input type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" class="otp-input" autofocus autocomplete="one-time-code" aria-label="Digit 1">
+                <input type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" class="otp-input" aria-label="Digit 2">
+                <input type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" class="otp-input" aria-label="Digit 3">
+                <div class="flex items-center px-1 text-gray-300 font-light text-lg">–</div>
+                <input type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" class="otp-input" aria-label="Digit 4">
+                <input type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" class="otp-input" aria-label="Digit 5">
+                <input type="text" inputmode="numeric" pattern="[0-9]" maxlength="1" class="otp-input" aria-label="Digit 6">
+              </div>
+
+              <!-- Hidden field that combines all digits for form submit -->
+              <input type="hidden" name="code" id="code-combined">
+            </div>
+
+            <!-- FIX H5: help-block con formato y expiración -->
+            <p class="text-xs text-gray-400 mb-6 mt-2 leading-relaxed">
+              <svg class="inline w-3 h-3 mr-0.5 mb-0.5 opacity-60" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+              </svg>
+              Codes expire every <strong>30 seconds</strong>. Open your authenticator app to get a fresh code.
+            </p>
+
+            <button
+              type="submit"
+              class="w-full bg-ms-green text-ms-black font-semibold text-sm py-3 px-6 rounded-lg
+                     hover:brightness-105 active:scale-[0.99] transition-all
+                     focus:outline-none focus:ring-2 focus:ring-ms-purple focus:ring-offset-2">
+              Verify
+            </button>
+          </form>
+
+          <!-- Don't have your phone section -->
+          <div class="mt-8 p-4 rounded-xl bg-gray-50 border border-gray-100">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-ms-purple/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-ms-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-ms-black">Don't have your phone?</p>
+                <p class="text-xs text-gray-500 mt-1 leading-relaxed">
+                  You can use a one-time recovery code instead. If you don't have one,
+                  <a href="mailto:support@mediastream.co" class="text-ms-purple underline underline-offset-2 hover:text-ms-black transition-colors">contact the Mediastream team</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Demo controls -->
+          <div class="mt-8 pt-6 border-t border-dashed border-gray-200">
+            <p class="text-xs text-gray-400 mb-2 font-medium">DEMO — Estados:</p>
+            <div class="flex gap-2 flex-wrap">
+              <button onclick="document.getElementById('error-state').classList.toggle('hidden')"
+                class="text-xs bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded border border-red-200 transition-colors">
+                Toggle error state
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="pb-6 text-center text-xs text-gray-400">
+        Mediastream Platform 2026 ·
+        <a href="https://mediastream.co" class="hover:text-ms-purple transition-colors">mediastream.co</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- OTP auto-advance JS -->
+  <script>
+    const inputs = document.querySelectorAll('.otp-input');
+    inputs.forEach((input, i) => {
+      input.addEventListener('input', e => {
+        const val = e.target.value.replace(/\D/g,'');
+        e.target.value = val;
+        if (val && i < inputs.length - 1) inputs[i + 1].focus();
+        e.target.classList.toggle('filled', !!val);
+        const code = Array.from(inputs).map(x=>x.value).join('');
+        document.getElementById('code-combined').value = code;
+      });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !e.target.value && i > 0) inputs[i - 1].focus();
+        if (e.key === 'ArrowLeft' && i > 0) inputs[i - 1].focus();
+        if (e.key === 'ArrowRight' && i < inputs.length - 1) inputs[i + 1].focus();
+      });
+      input.addEventListener('paste', e => {
+        e.preventDefault();
+        const paste = (e.clipboardData.getData('text') || '').replace(/\D/g,'').slice(0,6);
+        paste.split('').forEach((c, j) => {
+          if (inputs[j]) { inputs[j].value = c; inputs[j].classList.add('filled'); }
+        });
+        if (paste.length > 0) inputs[Math.min(paste.length, 5)].focus();
+        document.getElementById('code-combined').value = paste;
+      });
+    });
+  </script>
+
+  <!-- UX FIXES PANEL -->
+  <details class="border-t-2 border-dashed border-ms-purple/20 bg-gray-50">
+    <summary class="px-6 py-4 text-sm font-semibold text-gray-500 cursor-pointer hover:text-ms-purple flex items-center gap-2 select-none">
+      <svg class="w-4 h-4 text-ms-green" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+      </svg>
+      3 UX fixes aplicados + mejora bonus de OTP — clic para expandir
+    </summary>
+    <div class="px-6 pb-8 overflow-x-auto">
+      <table class="w-full text-xs border-collapse min-w-[560px] bg-white rounded-xl overflow-hidden shadow-sm">
+        <thead>
+          <tr class="bg-ms-black text-white">
+            <th class="text-left px-4 py-3 font-semibold">Finding ID</th>
+            <th class="text-left px-4 py-3 font-semibold">Problema</th>
+            <th class="text-left px-4 py-3 font-semibold">Fix en este mockup</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr><td class="px-4 py-3 text-gray-500 font-mono">login-totp-h5-01</td><td class="px-4 py-3">type="text" sin inputmode ni placeholder</td><td class="px-4 py-3 text-green-700">6 inputs individuales con inputmode="numeric", auto-advance, paste support, autocomplete="one-time-code"</td></tr>
+          <tr class="bg-gray-50"><td class="px-4 py-3 text-gray-500 font-mono">login-totp-h2-01</td><td class="px-4 py-3">Label "Authentication code" sin formato</td><td class="px-4 py-3 text-green-700">"6-digit authentication code" + help-block de expiración (30s)</td></tr>
+          <tr><td class="px-4 py-3 text-gray-500 font-mono">axe-html-has-lang</td><td class="px-4 py-3">&lt;html&gt; sin lang</td><td class="px-4 py-3 text-green-700">&lt;html lang="en"&gt;</td></tr>
+          <tr class="bg-gray-50"><td class="px-4 py-3 text-gray-500 font-mono">BONUS</td><td class="px-4 py-3">Campo único de texto plano</td><td class="px-4 py-3 text-blue-700">6 boxes individuales con auto-advance, navegación por flechas, y soporte de paste del SMS/clipboard</td></tr>
+        </tbody>
+      </table>
+      <p class="mt-4 text-xs text-gray-400">Nota: /login/totp no fue crawleado (requiere sesión activa). Este mockup se basa en el análisis estático de <code>views/login_totp.coffee</code>.</p>
+    </div>
+  </details>
+
+</body>
+</html>

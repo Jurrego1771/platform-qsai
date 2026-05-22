@@ -1,0 +1,16 @@
+node_modules/
+.auth/
+context/
+allure-results/
+allure-report/
+test-results/
+reports/baseline/screenshots/
+reports/baseline/accessibility/
+reports/baseline/diffs/
+reports/baseline/scores.json
+*.html
+!reports/baseline/UX_BASELINE.md
+!reports/redesign/*.html
+.env
+.playwright-mcp/
+.claude/settings.local.json
